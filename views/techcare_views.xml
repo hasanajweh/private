@@ -1,129 +1,234 @@
 <odoo>
-    <data>
-        <!-- Announcement Views -->
-        <record id="view_techcare_announcement_list" model="ir.ui.view">
-            <field name="name">techcare.announcement.list</field>
-            <field name="model">techcare.announcement</field>
-            <field name="arch" type="xml">
-                <list>
-                    <field name="title"/>
-                    <field name="date_posted"/>
-                    <field name="is_active"/>
-                    <field name="specialist_id"/>
-                </list>
-            </field>
-        </record>
+    <!-- Admin Views -->
 
-        <record id="view_techcare_announcement_form" model="ir.ui.view">
-            <field name="name">techcare.announcement.form</field>
-            <field name="model">techcare.announcement</field>
-            <field name="arch" type="xml">
-                <form>
-                    <sheet>
-                        <group>
-                            <field name="title"/>
-                            <field name="content"/>
-                            <field name="date_posted"/>
-                            <field name="is_active"/>
-                            <field name="specialist_id"/>
-                        </group>
-                    </sheet>
-                </form>
-            </field>
-        </record>
-
-        <!-- Appointment Views -->
-        <record id="view_techcare_appointment_list" model="ir.ui.view">
-            <field name="name">techcare.appointment.list</field>
-            <field name="model">techcare.appointment</field>
-            <field name="arch" type="xml">
-                <list>
-                    <field name="patient_name"/>
-                    <field name="appointment_date"/>
-                    <field name="specialist_id"/>
-                </list>
-            </field>
-        </record>
-
-        <record id="view_techcare_appointment_form" model="ir.ui.view">
-            <<field name="name">techcare.appointment.form</field>
-            <field name="model">techcare.appointment</field>
-            <field name="arch" type="xml">
-                <form>
-                    <sheet>
-                        <group>
-                            <field name="patient_name"/>
-                            <field name="appointment_date"/>
-                            <field name="specialist_id"/>
-                            <field name="notes"/>
-                        </group>
-                    </sheet>
-                </form>
-            </field>
-        </record>
-
-        <record id="view_techcare_appointment_search" model="ir.ui.view">
-            <field name="name">techcare.appointment.search</field>
-            <field name="model">techcare.appointment</field>
-            <field name="arch" type="xml">
-                <search>
-                    <filter name="date_filter" string="Appointment Date" domain="[('appointment_date', '>=', context_today())]"/>
-                    <filter name="specialist_filter" string="Specialist" domain="[('specialist_id', '=', user.id)]"/>
-                </search>
-            </field>
-        </record>
-
-        <!-- Dashboard Views -->
-        <record id="view_techcare_dashboard" model="ir.ui.view">
-            <field name="name">techcare.dashboard</field>
-            <field name="model">techcare.announcement</field>
-            <field name="arch" type="xml">
-                <dashboard>
+    <!-- Clinic Form and List Views for Admin -->
+    <record id="view_clinic_admin_form" model="ir.ui.view">
+        <field name="name">clinic.admin.form</field>
+        <field name="model">clinic.clinic</field>
+        <field name="arch" type="xml">
+            <form string="Clinic">
+                <sheet>
                     <group>
-                        <graph type="bar" string="Announcements">
-                            <field name="date_posted"/>
-                            <field name="title"/>
-                        </graph>
-                        <graph type="bar" string="Appointments">
-                            <field name="appointment_date"/>
-                            <field name="patient_name"/>
-                        </graph>
+                        <field name="name"/>
+                        <field name="address"/>
+                        <field name="contact_info"/>
                     </group>
-                </dashboard>
-            </field>
-        </record>
+                </sheet>
+            </form>
+        </field>
+    </record>
 
-        <!-- Mail Template -->
-        <record id="email_template_appointment_confirmation" model="mail.template">
-            <field name="name">Appointment Confirmation</field>
-            <field name="model_id" ref="model_techcare_appointment"/>
-            <field name="subject">Appointment Confirmation for ${object.patient_name}</field>
-            <field name="email_from">${(user.email or '')|safe}</field>
-            <field name="email_to">${object.specialist_id.email}</field>
-            <field name="body_html">
-                <![CDATA[
-                <p>Hello ${object.patient_name},</p>
-                <p>Your appointment has been confirmed for ${object.appointment_date}.</p>
-                <p>Best regards,</p>
-                <p>TechCare Team</p>
-                ]]>
-            </field>
-        </record>
+    <record id="view_clinic_admin_list" model="ir.ui.view">
+        <field name="name">clinic.admin.list</field>
+        <field name="model">clinic.clinic</field>
+        <field name="arch" type="xml">
+            <list string="Clinics">
+                <field name="name"/>
+                <field name="address"/>
+                <field name="contact_info"/>
+            </list>
+        </field>
+    </record>
 
-        <!-- Actions and Menuitems -->
-        <record id="action_techcare_announcements" model="ir.actions.act_window">
-            <field name="name">Announcements</field>
-            <field name="res_model">techcare.announcement</field>
-            <field name="view_mode">list,form</field>
-        </record>
+    <!-- Medical Specialist Form and List Views for Admin -->
+    <record id="view_medical_specialist_admin_form" model="ir.ui.view">
+        <field name="name">medical.specialist.admin.form</field>
+        <field name="model">clinic.medical_specialist</field>
+        <field name="arch" type="xml">
+            <form string="Medical Specialist">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="specialization"/>
+                        <field name="contact_info"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
 
-        <record id="action_techcare_appointments" model="ir.actions.act_window">
-            <field name="name">Appointments</field>
-            <field name="res_model">techcare.appointment</field>
-            <field name="view_mode">list,form</field>
-        </record>
+    <record id="view_medical_specialist_admin_list" model="ir.ui.view">
+        <field name="name">medical.specialist.admin.list</field>
+        <field name="model">clinic.medical_specialist</field>
+        <field name="arch" type="xml">
+            <list string="Medical Specialists">
+                <field name="name"/>
+                <field name="specialization"/>
+                <field name="contact_info"/>
+            </list>
+        </field>
+    </record>
 
-        <menuitem id="menu_techcare_announcements" name="Announcements" action="action_techcare_announcements"/>
-        <menuitem id="techcare_appointment_menu" name="Appointments" parent="menu_techcare_announcements" action="action_techcare_appointments"/>
-    </data>
+    <!-- Patient Form and List Views for Admin -->
+    <record id="view_patient_admin_form" model="ir.ui.view">
+        <field name="name">patient.admin.form</field>
+        <field name="model">clinic.patient</field>
+        <field name="arch" type="xml">
+            <form string="Patient">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="date_of_birth"/>
+                        <field name="medical_history"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_patient_admin_list" model="ir.ui.view">
+        <field name="name">patient.admin.list</field>
+        <field name="model">clinic.patient</field>
+        <field name="arch" type="xml">
+            <list string="Patients">
+                <field name="name"/>
+                <field name="date_of_birth"/>
+                <field name="medical_history"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Appointment Form and List Views for Admin -->
+    <record id="view_appointment_admin_form" model="ir.ui.view">
+        <field name="name">appointment.admin.form</field>
+        <field name="model">clinic.appointment</field>
+        <field name="arch" type="xml">
+            <form string="Appointment">
+                <sheet>
+                    <group>
+                        <field name="patient_id"/>
+                        <field name="doctor_id"/>
+                        <field name="date"/>
+                        <field name="notes"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_appointment_admin_list" model="ir.ui.view">
+        <field name="name">appointment.admin.list</field>
+        <field name="model">clinic.appointment</field>
+        <field name="arch" type="xml">
+            <list string="Appointments">
+                <field name="patient_id"/>
+                <field name="doctor_id"/>
+                <field name="date"/>
+                <field name="notes"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Announcement Form and List Views for Admin -->
+    <record id="view_announcement_admin_form" model="ir.ui.view">
+        <field name="name">announcement.admin.form</field>
+        <field name="model">clinic.announcement</field>
+        <field name="arch" type="xml">
+            <form string="Announcement">
+                <sheet>
+                    <group>
+                        <field name="title"/>
+                        <field name="content"/>
+                        <field name="created_date"/>
+                        <field name="expiry_date"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_announcement_admin_list" model="ir.ui.view">
+        <field name="name">announcement.admin.list</field>
+        <field name="model">clinic.announcement</field>
+        <field name="arch" type="xml">
+            <list string="Announcements">
+                <field name="title"/>
+                <field name="content"/>
+                <field name="created_date"/>
+                <field name="expiry_date"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Medical Specialist Views -->
+
+    <!-- List View of Clinics for Specialists -->
+    <record id="view_clinic_specialist_list" model="ir.ui.view">
+        <field name="name">clinic.specialist.list</field>
+        <field name="model">clinic.clinic</field>
+        <field name="arch" type="xml">
+            <list string="Clinics">
+                <field name="name"/>
+                <field name="address"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Patient Form View for Specialists -->
+    <record id="view_patient_specialist_form" model="ir.ui.view">
+        <field name="name">patient.specialist.form</field>
+        <field name="model">clinic.patient</field>
+        <field name="arch" type="xml">
+            <form string="Patient">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="medical_history"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Appointment Form View for Specialists -->
+    <record id="view_appointment_specialist_form" model="ir.ui.view">
+        <field name="name">appointment.specialist.form</field>
+        <field name="model">clinic.appointment</field>
+        <field name="arch" type="xml">
+            <form string="Appointment">
+                <sheet>
+                    <group>
+                        <field name="patient_id"/>
+                        <field name="date"/>
+                        <field name="notes"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Patient Views -->
+
+    <!-- List View of Appointments for Patients -->
+    <record id="view_appointment_patient_list" model="ir.ui.view">
+        <field name="name">appointment.patient.list</field>
+        <field name="model">clinic.appointment</field>
+        <field name="arch" type="xml">
+            <list string="My Appointments">
+                <field name="doctor_id"/>
+                <field name="date"/>
+                <field name="notes"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Menu Items -->
+
+    <!-- Main Menu for TechCare -->
+    <menuitem id="menu_techcare_root" name="TechCare" sequence="1"/>
+
+    <!-- Submenu for Clinics under TechCare -->
+    <menuitem id="menu_clinic" name="Clinics" parent="menu_techcare_root" action="action_clinic_admin_list" sequence="10"/>
+
+    <!-- Submenu for Medical Specialists under TechCare -->
+    <menuitem id="menu_medical_specialist" name="Medical Specialists" parent="menu_techcare_root" action="action_medical_specialist_admin_list" sequence="20"/>
+
+    <!-- Submenu for Patients under TechCare -->
+    <menuitem id="menu_patient" name="Patients" parent="menu_techcare_root" action="action_patient_admin_list" sequence="30"/>
+
+    <!-- Submenu for Appointments under TechCare -->
+    <menuitem id="menu_appointment" name="Appointments" parent="menu_techcare_root" action="action_appointment_admin_list" sequence="40"/>
+
+    <!-- Submenu for Announcements under TechCare -->
+    <menuitem id="menu_announcement" name="Announcements" parent="menu_techcare_root" action="action_announcement_admin_list" sequence="50"/>
 </odoo>
