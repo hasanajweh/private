@@ -26,6 +26,8 @@ class Patient(models.Model):
 
     name = fields.Char("Patient Name", required=True)
     id_number = fields.Char("ID Number", required=True)
+    birth_date = fields.Date("Birth Date")
+    medical_history = fields.Text("Medical History")
     clinic_id = fields.Many2one('clinic.clinic', string="Clinic")
 
 class Appointment(models.Model):
@@ -36,6 +38,7 @@ class Appointment(models.Model):
     doctor_id = fields.Many2one('clinic.medical_specialist', string="Doctor", required=True)
     patient_id = fields.Many2one('clinic.patient', string="Patient", required=True)
     clinic_id = fields.Many2one('clinic.clinic', string="Clinic")
+    notes = fields.Text("Notes")
 
 class Announcement(models.Model):
     _name = 'clinic.announcement'
@@ -44,3 +47,5 @@ class Announcement(models.Model):
     title = fields.Char("Title", required=True)
     content = fields.Text("Content")
     doctor_id = fields.Many2one('clinic.medical_specialist', string="Doctor")
+    created_date = fields.Datetime("Created Date",default=fields.Datetime.now)
+    expiry_date = fields.Datetime("Expiry Date")
