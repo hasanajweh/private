@@ -144,13 +144,12 @@
     </record>
 
     <!-- Action Definitions -->
+    <!-- Clinic Admin List Action (Removed duplicate view_id) -->
     <record id="action_clinic_admin_list" model="ir.actions.act_window">
         <field name="name">Clinics</field>
         <field name="res_model">clinic.clinic</field>
         <field name="view_mode">list,form</field>
         <field name="view_id" ref="view_clinic_admin_list"/>
-        <field name="view_id" ref="view_clinic_patient_list"/>
-        <field name="view_ids" eval="[(0, 0, {'view_id': ref('view_clinic_admin_list'), 'view_mode': 'list'}), (0, 0, {'view_id': ref('view_clinic_admin_form'), 'view_mode': 'form'})]"/>
     </record>
 
     <record id="action_medical_specialist_admin_list" model="ir.actions.act_window">
@@ -158,7 +157,6 @@
         <field name="res_model">clinic.medical_specialist</field>
         <field name="view_mode">list,form</field>
         <field name="view_id" ref="view_medical_specialist_admin_list"/>
-        <field name="view_ids" eval="[(0, 0, {'view_id': ref('view_medical_specialist_admin_list'), 'view_mode': 'list'}), (0, 0, {'view_id': ref('view_medical_specialist_admin_form'), 'view_mode': 'form'})]"/>
     </record>
 
     <record id="action_patient_admin_list" model="ir.actions.act_window">
@@ -166,7 +164,6 @@
         <field name="res_model">clinic.patient</field>
         <field name="view_mode">list,form</field>
         <field name="view_id" ref="view_patient_admin_list"/>
-        <field name="view_ids" eval="[(0, 0, {'view_id': ref('view_patient_admin_list'), 'view_mode': 'list'}), (0, 0, {'view_id': ref('view_patient_admin_form'), 'view_mode': 'form'})]"/>
     </record>
 
     <record id="action_appointment_admin_list" model="ir.actions.act_window">
@@ -174,7 +171,6 @@
         <field name="res_model">clinic.appointment</field>
         <field name="view_mode">list,form</field>
         <field name="view_id" ref="view_appointment_admin_list"/>
-        <field name="view_ids" eval="[(0, 0, {'view_id': ref('view_appointment_admin_list'), 'view_mode': 'list'}), (0, 0, {'view_id': ref('view_appointment_admin_form'), 'view_mode': 'form'})]"/>
     </record>
 
     <record id="action_announcement_admin_list" model="ir.actions.act_window">
@@ -182,7 +178,6 @@
         <field name="res_model">clinic.announcement</field>
         <field name="view_mode">list,form</field>
         <field name="view_id" ref="view_announcement_admin_list"/>
-        <field name="view_ids" eval="[(0, 0, {'view_id': ref('view_announcement_admin_list'), 'view_mode': 'list'}), (0, 0, {'view_id': ref('view_announcement_admin_form'), 'view_mode': 'form'})]"/>
     </record>
 
     <!-- Menu Definitions -->
