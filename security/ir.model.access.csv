@@ -1,4 +1,4 @@
 "id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
-"access_techcare_admin","access_techcare_admin","model_clinic_clinic","group_techcare_admin",1,1,1,1
-"access_techcare_specialist","access_techcare_specialist","model_clinic_medical_specialist","group_techcare_specialist",1,1,1,1
-"access_techcare_patient","access_techcare_patient","model_clinic_patient","group_techcare_patient",1,0,0,0
+"access_techcare_admin","TechCare Admin Access","model_clinic_clinic","group_techcare_admin",1,1,1,1
+"access_techcare_specialist","TechCare Specialist Access","model_clinic_medical_specialist","group_techcare_specialist",1,1,1,1
+"access_techcare_patient","TechCare Patient Access","model_clinic_patient","group_techcare_patient",1,0,0,0

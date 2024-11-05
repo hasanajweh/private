@@ -1,7 +1,36 @@
 <odoo>
-    <!-- Admin Views -->
+    <!-- Define Actions without explicit view_ids -->
+    <record id="action_clinic_admin_list" model="ir.actions.act_window">
+        <field name="name">Clinics</field>
+        <field name="res_model">clinic.clinic</field>
+        <field name="view_mode">tree,form</field>
+    </record>
 
-    <!-- Clinic Form and List Views for Admin -->
+    <record id="action_medical_specialist_admin_list" model="ir.actions.act_window">
+        <field name="name">Medical Specialists</field>
+        <field name="res_model">clinic.medical_specialist</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_patient_admin_list" model="ir.actions.act_window">
+        <field name="name">Patients</field>
+        <field name="res_model">clinic.patient</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_appointment_admin_list" model="ir.actions.act_window">
+        <field name="name">Appointments</field>
+        <field name="res_model">clinic.appointment</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_announcement_admin_list" model="ir.actions.act_window">
+        <field name="name">Announcements</field>
+        <field name="res_model">clinic.announcement</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Clinic Form and List Views -->
     <record id="view_clinic_admin_form" model="ir.ui.view">
         <field name="name">clinic.admin.form</field>
         <field name="model">clinic.clinic</field>
@@ -30,7 +59,7 @@
         </field>
     </record>
 
-    <!-- Medical Specialist Form and List Views for Admin -->
+    <!-- Medical Specialist Form and List Views -->
     <record id="view_medical_specialist_admin_form" model="ir.ui.view">
         <field name="name">medical.specialist.admin.form</field>
         <field name="model">clinic.medical_specialist</field>
@@ -59,7 +88,7 @@
         </field>
     </record>
 
-    <!-- Patient Form and List Views for Admin -->
+    <!-- Patient Form and List Views -->
     <record id="view_patient_admin_form" model="ir.ui.view">
         <field name="name">patient.admin.form</field>
         <field name="model">clinic.patient</field>
@@ -88,7 +117,7 @@
         </field>
     </record>
 
-    <!-- Appointment Form and List Views for Admin -->
+    <!-- Appointment Form and List Views -->
     <record id="view_appointment_admin_form" model="ir.ui.view">
         <field name="name">appointment.admin.form</field>
         <field name="model">clinic.appointment</field>
@@ -119,7 +148,7 @@
         </field>
     </record>
 
-    <!-- Announcement Form and List Views for Admin -->
+    <!-- Announcement Form and List Views -->
     <record id="view_announcement_admin_form" model="ir.ui.view">
         <field name="name">announcement.admin.form</field>
         <field name="model">clinic.announcement</field>
@@ -150,85 +179,10 @@
         </field>
     </record>
 
-    <!-- Medical Specialist Views -->
-
-    <!-- List View of Clinics for Specialists -->
-    <record id="view_clinic_specialist_list" model="ir.ui.view">
-        <field name="name">clinic.specialist.list</field>
-        <field name="model">clinic.clinic</field>
-        <field name="arch" type="xml">
-            <list string="Clinics">
-                <field name="name"/>
-                <field name="address"/>
-            </list>
-        </field>
-    </record>
-
-    <!-- Patient Form View for Specialists -->
-    <record id="view_patient_specialist_form" model="ir.ui.view">
-        <field name="name">patient.specialist.form</field>
-        <field name="model">clinic.patient</field>
-        <field name="arch" type="xml">
-            <form string="Patient">
-                <sheet>
-                    <group>
-                        <field name="name"/>
-                        <field name="medical_history"/>
-                    </group>
-                </sheet>
-            </form>
-        </field>
-    </record>
-
-    <!-- Appointment Form View for Specialists -->
-    <record id="view_appointment_specialist_form" model="ir.ui.view">
-        <field name="name">appointment.specialist.form</field>
-        <field name="model">clinic.appointment</field>
-        <field name="arch" type="xml">
-            <form string="Appointment">
-                <sheet>
-                    <group>
-                        <field name="patient_id"/>
-                        <field name="date"/>
-                        <field name="notes"/>
-                    </group>
-                </sheet>
-            </form>
-        </field>
-    </record>
-
-    <!-- Patient Views -->
-
-    <!-- List View of Appointments for Patients -->
-    <record id="view_appointment_patient_list" model="ir.ui.view">
-        <field name="name">appointment.patient.list</field>
-        <field name="model">clinic.appointment</field>
-        <field name="arch" type="xml">
-            <list string="My Appointments">
-                <field name="doctor_id"/>
-                <field name="date"/>
-                <field name="notes"/>
-            </list>
-        </field>
-    </record>
-
-    <!-- Menu Items -->
-
-    <!-- Main Menu for TechCare -->
     <menuitem id="menu_techcare_root" name="TechCare" sequence="1"/>
-
-    <!-- Submenu for Clinics under TechCare -->
-    <menuitem id="menu_clinic" name="Clinics" parent="menu_techcare_root" action="action_clinic_admin_list" sequence="10"/>
-
-    <!-- Submenu for Medical Specialists under TechCare -->
-    <menuitem id="menu_medical_specialist" name="Medical Specialists" parent="menu_techcare_root" action="action_medical_specialist_admin_list" sequence="20"/>
-
-    <!-- Submenu for Patients under TechCare -->
-    <menuitem id="menu_patient" name="Patients" parent="menu_techcare_root" action="action_patient_admin_list" sequence="30"/>
-
-    <!-- Submenu for Appointments under TechCare -->
-    <menuitem id="menu_appointment" name="Appointments" parent="menu_techcare_root" action="action_appointment_admin_list" sequence="40"/>
-
-    <!-- Submenu for Announcements under TechCare -->
-    <menuitem id="menu_announcement" name="Announcements" parent="menu_techcare_root" action="action_announcement_admin_list" sequence="50"/>
+    <menuitem id="menu_clinic" name="Clinics" parent="menu_techcare_root" action="medical_announcement.action_clinic_admin_list" sequence="10"/>
+    <menuitem id="menu_medical_specialist" name="Medical Specialists" parent="menu_techcare_root" action="medical_announcement.action_medical_specialist_admin_list" sequence="20"/>
+    <menuitem id="menu_patient" name="Patients" parent="menu_techcare_root" action="medical_announcement.action_patient_admin_list" sequence="30"/>
+    <menuitem id="menu_appointment" name="Appointments" parent="menu_techcare_root" action="medical_announcement.action_appointment_admin_list" sequence="40"/>
+    <menuitem id="menu_announcement" name="Announcements" parent="menu_techcare_root" action="medical_announcement.action_announcement_admin_list" sequence="50"/>
 </odoo>

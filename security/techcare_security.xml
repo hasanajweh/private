@@ -1,17 +1,14 @@
 <odoo>
-    <!-- Define TechCare Admin Group -->
     <record id="group_techcare_admin" model="res.groups">
         <field name="name">TechCare Admin</field>
         <field name="category_id" ref="base.module_category_administration"/>
     </record>
 
-    <!-- Define TechCare Specialist Group -->
     <record id="group_techcare_specialist" model="res.groups">
         <field name="name">TechCare Specialist</field>
         <field name="category_id" ref="base.module_category_hidden"/>
     </record>
 
-    <!-- Define TechCare Patient Group -->
     <record id="group_techcare_patient" model="res.groups">
         <field name="name">TechCare Patient</field>
         <field name="category_id" ref="base.module_category_hidden"/>
