@@ -39,6 +39,7 @@
                         <field name="name"/>
                         <field name="specialization"/>
                         <field name="contact_info"/>
+                        <field name="clinic_id"/> <!-- Mandatory clinic assignment -->
                     </group>
                 </sheet>
             </form>
@@ -53,6 +54,7 @@
                 <field name="name"/>
                 <field name="specialization"/>
                 <field name="contact_info"/>
+                <field name="clinic_id"/>
             </list>
         </field>
     </record>
@@ -66,6 +68,7 @@
                 <sheet>
                     <group>
                         <field name="name"/>
+                        <field name="id_number"/>
                         <field name="birth_date"/>
                         <field name="medical_history"/>
                     </group>
@@ -80,6 +83,7 @@
         <field name="arch" type="xml">
             <list string="Patients">
                 <field name="name"/>
+                <field name="id_number"/>
                 <field name="birth_date"/>
                 <field name="medical_history"/>
             </list>
@@ -94,10 +98,11 @@
             <form string="Appointment">
                 <sheet>
                     <group>
-                        <field name="patient_id"/>
+                        <field name="patient_id" options="{'no_create': True}"/> <!-- Default to logged-in patient -->
                         <field name="doctor_id"/>
                         <field name="date"/>
                         <field name="notes"/>
+                        <field name="status" readonly="1"/>
                     </group>
                 </sheet>
             </form>
@@ -113,6 +118,7 @@
                 <field name="doctor_id"/>
                 <field name="date"/>
                 <field name="notes"/>
+                <field name="status"/>
             </list>
         </field>
     </record>
@@ -127,7 +133,9 @@
                     <group>
                         <field name="title"/>
                         <field name="content"/>
-                        <field name="created_date"/>
+                        <field name="doctor_id" options="{'no_create': True}"/> <!-- Target specialist -->
+                        <field name="clinic_id" options="{'no_create': True}"/> <!-- Target clinic -->
+                        <field name="created_date" readonly="1"/>
                         <field name="expiry_date"/>
                     </group>
                 </sheet>
@@ -142,48 +150,11 @@
             <list string="Announcements">
                 <field name="title"/>
                 <field name="content"/>
+                <field name="doctor_id"/>
+                <field name="clinic_id"/>
                 <field name="created_date"/>
                 <field name="expiry_date"/>
             </list>
         </field>
     </record>
-
-    <!-- Action Definitions -->
-    <record id="action_clinic_admin_list" model="ir.actions.act_window">
-        <field name="name">Clinics</field>
-        <field name="res_model">clinic.clinic</field>
-        <field name="view_mode">list,form</field>
-    </record>
-
-    <record id="action_medical_specialist_admin_list" model="ir.actions.act_window">
-        <field name="name">Medical Specialists</field>
-        <field name="res_model">clinic.medical_specialist</field>
-        <field name="view_mode">list,form</field>
-    </record>
-
-    <record id="action_patient_admin_list" model="ir.actions.act_window">
-        <field name="name">Patients</field>
-        <field name="res_model">clinic.patient</field>
-        <field name="view_mode">list,form</field>
-    </record>
-
-    <record id="action_appointment_admin_list" model="ir.actions.act_window">
-        <field name="name">Appointments</field>
-        <field name="res_model">clinic.appointment</field>
-        <field name="view_mode">list,form</field>
-    </record>
-
-    <record id="action_announcement_admin_list" model="ir.actions.act_window">
-        <field name="name">Announcements</field>
-        <field name="res_model">clinic.announcement</field>
-        <field name="view_mode">list,form</field>
-    </record>
-
-    <!-- Menu Definitions -->
-    <menuitem id="menu_techcare_root" name="TechCare" sequence="1"/>
-    <menuitem id="menu_clinic" name="Clinics" parent="menu_techcare_root" action="action_clinic_admin_list" sequence="10"/>
-    <menuitem id="menu_medical_specialist" name="Medical Specialists" parent="menu_techcare_root" action="action_medical_specialist_admin_list" sequence="20"/>
-    <menuitem id="menu_patient" name="Patients" parent="menu_techcare_root" action="action_patient_admin_list" sequence="30"/>
-    <menuitem id="menu_appointment" name="Appointments" parent="menu_techcare_root" action="action_appointment_admin_list" sequence="40"/>
-    <menuitem id="menu_announcement" name="Announcements" parent="menu_techcare_root" action="action_announcement_admin_list" sequence="50"/>
 </odoo>

@@ -5,10 +5,14 @@ class Appointment(models.Model):
     _description = 'Appointment'
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
-    date = fields.Date("Date", required=True)
-    doctor_id = fields.Many2one('clinic.medical_specialist', string="Doctor", required=True)
-    patient_id = fields.Many2one('clinic.patient', string="Patient", required=True)
-    clinic_id = fields.Many2one('clinic.clinic', string="Clinic")
+    date = fields.Datetime("Appointment Date", required=True, tracking=True)
+    doctor_id = fields.Many2one('clinic.medical_specialist', string="Medical Specialist", required=True)
+    patient_id = fields.Many2one(
+        'clinic.patient',
+        string="Patient",
+        required=True,
+        default=lambda self: self._get_default_patient()
+    )
     notes = fields.Text("Notes")
     status = fields.Selection([
         ('draft', 'Draft'),
@@ -17,23 +21,19 @@ class Appointment(models.Model):
         ('canceled', 'Canceled')
     ], default='draft', tracking=True)
 
-    schedule_id = fields.Many2one('calendar.event', string="Available Time Slot", required=True)
+    @api.model
+    def _get_default_patient(self):
+        """Get the default patient record for the logged-in user."""
+        return self.env['clinic.patient'].search([('id_number', '=', self.env.user.partner_id.id)], limit=1).id
 
     def confirm_appointment(self):
-        for appointment in self:
-            appointment.schedule_id.write({'state': 'busy'})
-            appointment.status = 'confirmed'
+        """Method to confirm the appointment."""
+        self.status = 'confirmed'
 
     def cancel_appointment(self):
-        for appointment in self:
-            appointment.schedule_id.write({'state': 'free'})
-            appointment.status = 'canceled'
+        """Method to cancel the appointment."""
+        self.status = 'canceled'
 
-    @api.onchange('doctor_id')
-    def _onchange_doctor(self):
-        if self.doctor_id:
-            available_times = self.env['calendar.event'].search([
-                ('specialist_id', '=', self.doctor_id.id),
-                ('state', '=', 'free')
-            ])
-            self.schedule_id = available_times[:1]
+    def mark_done(self):
+        """Method to mark the appointment as done."""
+        self.status = 'done'

@@ -9,6 +9,7 @@
         'security/techcare_security.xml',
         'security/ir.model.access.csv',
         'views/techcare_views.xml',
+        'views/menus.xml',  # menus
     ],
     'installable': True,
     'application': True,
