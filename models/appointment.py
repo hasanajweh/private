@@ -13,6 +13,7 @@ class Appointment(models.Model):
         required=True,
         default=lambda self: self._get_default_patient()
     )
+    user_id = fields.Many2one('res.users', related='patient_id.user_id', string="Related User", readonly=True)
     notes = fields.Text("Notes")
     status = fields.Selection([
         ('draft', 'Draft'),
@@ -24,7 +25,7 @@ class Appointment(models.Model):
     @api.model
     def _get_default_patient(self):
         """Get the default patient record for the logged-in user."""
-        return self.env['clinic.patient'].search([('id_number', '=', self.env.user.partner_id.id)], limit=1).id
+        return self.env['clinic.patient'].search([('user_id', '=', self.env.user.id)], limit=1).id
 
     def confirm_appointment(self):
         """Method to confirm the appointment."""

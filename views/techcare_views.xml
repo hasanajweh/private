@@ -39,7 +39,7 @@
                         <field name="name"/>
                         <field name="specialization"/>
                         <field name="contact_info"/>
-                        <field name="clinic_id"/> <!-- Mandatory clinic assignment -->
+                        <field name="clinic_id" required="1"/> <!-- Mandatory clinic assignment -->
                     </group>
                 </sheet>
             </form>
@@ -71,6 +71,9 @@
                         <field name="id_number"/>
                         <field name="birth_date"/>
                         <field name="medical_history"/>
+                        <field name="emergency_contact"/>
+                        <field name="clinic_id"/>
+                        <field name="user_id"/> <!-- Related User -->
                     </group>
                 </sheet>
             </form>
@@ -86,6 +89,7 @@
                 <field name="id_number"/>
                 <field name="birth_date"/>
                 <field name="medical_history"/>
+                <field name="user_id"/>
             </list>
         </field>
     </record>
@@ -98,12 +102,18 @@
             <form string="Appointment">
                 <sheet>
                     <group>
-                        <field name="patient_id" options="{'no_create': True}"/> <!-- Default to logged-in patient -->
-                        <field name="doctor_id"/>
-                        <field name="date"/>
+                        <field name="patient_id" options="{'no_create': True}" required="1"/> <!-- Linked patient -->
+                        <field name="user_id" readonly="1"/> <!-- Related user -->
+                        <field name="doctor_id" required="1"/>
+                        <field name="date" required="1"/>
                         <field name="notes"/>
                         <field name="status" readonly="1"/>
                     </group>
+                    <notebook>
+                        <page string="Messages">
+                            <field name="message_ids" widget="mail_thread"/>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>
@@ -117,7 +127,6 @@
                 <field name="patient_id"/>
                 <field name="doctor_id"/>
                 <field name="date"/>
-                <field name="notes"/>
                 <field name="status"/>
             </list>
         </field>

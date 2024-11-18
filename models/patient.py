@@ -11,6 +11,7 @@ class Patient(models.Model):
     medical_history = fields.Text("Medical History")
     emergency_contact = fields.Char("Emergency Contact")
     clinic_id = fields.Many2one('clinic.clinic', string="Clinic")
+    user_id = fields.Many2one('res.users', string="Related User", help="System user linked to this patient.")
 
     @api.depends('birth_date')
     def _compute_age(self):
