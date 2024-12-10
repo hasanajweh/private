@@ -1,7 +1,7 @@
 {
     'name': 'TechCare',
     'version': '1.0',
-    'summary': 'Connecting Medical Specialists with the Community',
+    'summary': 'Clinics System',
     'category': 'Medical/Medical',
     'author': 'Hasan Ajweh',
     'depends': ['base', 'mail', 'calendar', 'website'],
