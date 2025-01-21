@@ -1,40 +1,29 @@
 from odoo import models, fields, api
+from odoo.exceptions import ValidationError
+
 
 class Appointment(models.Model):
     _name = 'clinic.appointment'
     _description = 'Appointment'
-    _inherit = ['mail.thread', 'mail.activity.mixin']
+    _inherit = ['mail.thread', 'mail.activity.mixin']  # Only keep these if you need chatter.
 
-    date = fields.Datetime("Appointment Date", required=True, tracking=True)
-    doctor_id = fields.Many2one('clinic.medical_specialist', string="Medical Specialist", required=True)
-    patient_id = fields.Many2one(
-        'clinic.patient',
-        string="Patient",
-        required=True,
-        default=lambda self: self._get_default_patient()
+    clinic_id = fields.Many2one('clinic.clinic', string="Clinic", required=True)
+    doctor_id = fields.Many2one(
+        'clinic.medical_specialist', string="Medical Specialist", required=True, domain="[('clinic_id', '=', clinic_id)]"
     )
-    user_id = fields.Many2one('res.users', related='patient_id.user_id', string="Related User", readonly=True)
-    notes = fields.Text("Notes")
-    status = fields.Selection([
-        ('draft', 'Draft'),
-        ('confirmed', 'Confirmed'),
-        ('done', 'Done'),
-        ('canceled', 'Canceled')
-    ], default='draft', tracking=True)
+    date = fields.Datetime(string="Appointment Date", required=True)
+    time = fields.Float(string="Time", required=True, help="Time in hours (e.g., 14.5 for 2:30 PM)")
+    patient_id = fields.Many2one(
+        'clinic.patient', string="Patient", required=True, domain="[('clinic_id', '=', clinic_id)]"
+    )
+    status = fields.Selection(
+        [('draft', 'Draft'), ('confirmed', 'Confirmed'), ('done', 'Done'), ('canceled', 'Canceled')],
+        default='draft', string="Status", tracking=True
+    )
 
-    @api.model
-    def _get_default_patient(self):
-        """Get the default patient record for the logged-in user."""
-        return self.env['clinic.patient'].search([('user_id', '=', self.env.user.id)], limit=1).id
-
-    def confirm_appointment(self):
-        """Method to confirm the appointment."""
-        self.status = 'confirmed'
-
-    def cancel_appointment(self):
-        """Method to cancel the appointment."""
-        self.status = 'canceled'
-
-    def mark_done(self):
-        """Method to mark the appointment as done."""
-        self.status = 'done'
+    @api.constrains('date')
+    def _check_date(self):
+        """Ensure the appointment date is not in the past."""
+        for record in self:
+            if record.date and record.date < fields.Datetime.now():
+                raise ValidationError("The appointment date cannot be in the past.")

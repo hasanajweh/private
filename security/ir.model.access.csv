@@ -1,6 +1,9 @@
 "id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
-"access_techcare_admin","TechCare Admin Access","model_clinic_clinic","group_techcare_admin",1,1,1,1
-"access_techcare_specialist","TechCare Specialist Access","model_clinic_medical_specialist","group_techcare_specialist",1,1,1,1
-"access_techcare_patient","TechCare Patient Access","model_clinic_patient","group_techcare_admin",1,1,1,1
-"access_clinic_appointment_patient","Patient Appointment Access","model_clinic_appointment","group_techcare_patient",1,1,1,1
-"access_clinic_announcement_admin","Admin Announcement Access","model_clinic_announcement","group_techcare_admin",1,1,1,1
+"access_clinic_admin","Clinic Admin Access","model_clinic_clinic","group_techcare_admin",1,1,1,1
+"access_specialist_admin","Specialist Admin Access","model_clinic_medical_specialist","group_techcare_admin",1,1,1,1
+"access_patient_admin","Patient Admin Access","model_clinic_patient","group_techcare_admin",1,1,1,1
+"access_appointment_admin","Appointment Admin Access","model_clinic_appointment","group_techcare_admin",1,1,1,1
+"access_announcement_admin","Announcement Admin Access","model_clinic_announcement","group_techcare_admin",1,1,1,1
+"access_dashboard_admin","Dashboard Admin Access","model_clinic_dashboard","group_techcare_admin",1,1,0,0
+"access_dashboard_trend_admin","Dashboard Appointment Trend Access","model_clinic_dashboard_appointment_trend","group_techcare_admin",1,1,0,0
+"access_dashboard_distribution_admin","Dashboard Clinic Distribution Access","model_clinic_dashboard_clinic_distribution","group_techcare_admin",1,1,0,0

@@ -1,0 +1,76 @@
+<odoo>
+    <!-- Clinic Types -->
+    <record id="view_clinic_type_form" model="ir.ui.view">
+        <field name="name">clinic.type.form</field>
+        <field name="model">clinic.type</field>
+        <field name="arch" type="xml">
+            <form string="Clinic Type">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_clinic_type_list" model="ir.ui.view">
+        <field name="name">clinic.type.list</field>
+        <field name="model">clinic.type</field>
+        <field name="arch" type="xml">
+            <list string="Clinic Types">
+                <field name="name"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Appointment Types -->
+    <record id="view_appointment_type_form" model="ir.ui.view">
+        <field name="name">appointment.type.form</field>
+        <field name="model">appointment.type</field>
+        <field name="arch" type="xml">
+            <form string="Appointment Type">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_appointment_type_list" model="ir.ui.view">
+        <field name="name">appointment.type.list</field>
+        <field name="model">appointment.type</field>
+        <field name="arch" type="xml">
+            <list string="Appointment Types">
+                <field name="name"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Specialist Categories -->
+    <record id="view_specialist_category_form" model="ir.ui.view">
+        <field name="name">specialist.category.form</field>
+        <field name="model">specialist.category</field>
+        <field name="arch" type="xml">
+            <form string="Specialist Category">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_specialist_category_list" model="ir.ui.view">
+        <field name="name">specialist.category.list</field>
+        <field name="model">specialist.category</field>
+        <field name="arch" type="xml">
+            <list string="Specialist Categories">
+                <field name="name"/>
+            </list>
+        </field>
+    </record>
+</odoo>

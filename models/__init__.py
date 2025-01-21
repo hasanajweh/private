@@ -4,3 +4,5 @@ from . import patient
 from . import appointment
 from . import announcement
 from . import calendar_event
+from . import configuration
+from . import dashboard

@@ -1,0 +1,55 @@
+<odoo>
+    <!-- Dashboard Action -->
+    <record id="action_dashboard_techcare" model="ir.actions.act_window">
+        <field name="name">TechCare Dashboard</field>
+        <field name="res_model">clinic.dashboard</field>
+        <field name="view_mode">kanban,graph,list</field>
+        <field name="target">current</field>
+    </record>
+
+    <!-- Dashboard Menu -->
+    <menuitem id="menu_dashboard" name="Dashboard" parent="menu_techcare_root" action="action_dashboard_techcare" sequence="5"/>
+
+    <!-- Kanban View for KPIs -->
+    <record id="view_dashboard_kanban" model="ir.ui.view">
+        <field name="name">clinic.dashboard.kanban</field>
+        <field name="model">clinic.dashboard</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="o_kanban_card">
+                            <h2>TechCare Dashboard</h2>
+                            <div>Total Clinics: <field name="total_clinics"/></div>
+                            <div>Total Appointments: <field name="total_appointments"/></div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Graph View for Appointment Trends -->
+    <record id="view_dashboard_graph_trend" model="ir.ui.view">
+        <field name="name">clinic.dashboard.graph.trend</field>
+        <field name="model">clinic.dashboard.appointment.trend</field>
+        <field name="arch" type="xml">
+            <graph string="Appointment Trends" type="line">
+                <field name="count" type="measure"/>
+                <field name="date" type="row"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- Graph View for Clinic Appointment Distribution -->
+    <record id="view_dashboard_graph_distribution" model="ir.ui.view">
+        <field name="name">clinic.dashboard.graph.distribution</field>
+        <field name="model">clinic.dashboard.clinic.distribution</field>
+        <field name="arch" type="xml">
+            <graph string="Clinic Appointment Distribution" type="bar">
+                <field name="count" type="measure"/>
+                <field name="clinic_id" type="row"/>
+            </graph>
+        </field>
+    </record>
+</odoo>

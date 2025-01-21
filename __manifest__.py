@@ -8,8 +8,11 @@
     'data': [
         'security/techcare_security.xml',
         'security/ir.model.access.csv',
+        'views/clinic_views.xml',
         'views/techcare_views.xml',
-        'views/menus.xml',  # menus
+        'views/configuration_views.xml',
+        'views/dashboard.xml',
+        'views/menus.xml',
     ],
     'installable': True,
     'application': True,
